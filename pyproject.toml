@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "forge-align"
+version = "0.1.0"
+description = "DPO alignment, from scratch, for the Forge language model -- including the reward hacking it causes."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+dependencies = [
+  "torch>=1.13",
+  "numpy>=1.24",
+  "fastapi>=0.100",
+  "uvicorn>=0.23",
+  "matplotlib>=3.7",
+  "safetensors>=0.4",
+  # forge-llm supplies the tokenizer, model and inference engine this repo aligns.
+  # During development: pip install -e ../forge-llm, then pip install -e . here.
+  # From a clean clone: pip install "forge-llm @ git+https://github.com/EllE961/forge-llm.git"
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7", "httpx>=0.24", "ruff>=0.1"]
+
+[tool.setuptools.packages.find]
+include = ["align*"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+select = ["E", "F", "W", "I", "B", "UP", "SIM"]
+ignore = ["E731", "B905", "SIM108", "UP007"]
+exclude = ["data", "checkpoints", "runs"]

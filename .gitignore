@@ -1,0 +1,25 @@
+# data, weights and run artefacts are reproducible and large
+data/
+checkpoints/
+runs/*/*.pt
+runs/*.log
+*.pt
+*.bin
+
+# forge-llm is installed editable from a sibling checkout during development
+forge-llm/
+
+# python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+.venv/
+venv/
+
+# editors / os
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

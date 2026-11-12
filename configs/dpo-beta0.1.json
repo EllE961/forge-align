@@ -1,0 +1,9 @@
+{
+  "run_name": "dpo-beta0.1",
+  "pairs_path": "data/pairs_train.jsonl",
+  "beta": 0.1,
+  "lr": 1e-5,
+  "epochs": 3,
+  "log_interval": 5,
+  "ckpt_interval": 20
+}

@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>forge-align playground</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root {
+    --bg: #0d0c0b; --panel: #131211; --ink: #ede7de; --ink2: #aaa299; --ink3: #7a736c;
+    --grid: #24221f; --ember: #d95926; --temper: #3987e5; --purple: #c0509c; --green: #3bb273;
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg); color: var(--ink); font-family: "Segoe UI", system-ui, sans-serif;
+    margin: 0; padding: 32px 24px 64px; line-height: 1.5;
+  }
+  h1 { font-size: 20px; font-weight: 600; margin: 0 0 4px; }
+  .sub { color: var(--ink2); font-size: 13.5px; margin-bottom: 24px; max-width: 760px; }
+  .controls { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 28px; }
+  select, button {
+    background: var(--panel); color: var(--ink); border: 1px solid var(--grid); border-radius: 8px;
+    padding: 9px 14px; font-size: 14px; font-family: inherit;
+  }
+  button { background: var(--ember); border-color: var(--ember); color: #0d0c0b; font-weight: 600; cursor: pointer; }
+  button:disabled { opacity: 0.5; cursor: default; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; }
+  .card { background: var(--panel); border: 1px solid var(--grid); border-radius: 10px; padding: 16px 18px; }
+  .card h3 { margin: 0 0 8px; font-size: 13.5px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ink2); }
+  .card .total { float: right; color: var(--ember); font-weight: 700; }
+  .card p { font-size: 14.5px; color: var(--ink); white-space: pre-wrap; margin: 8px 0 14px; min-height: 70px; }
+  .bars { display: flex; flex-direction: column; gap: 5px; }
+  .bar-row { display: grid; grid-template-columns: 70px 1fr 34px; align-items: center; gap: 8px; font-size: 11.5px; color: var(--ink3); }
+  .bar-track { background: #1c1a18; border-radius: 4px; height: 7px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 4px; }
+  .shift-title { margin: 32px 0 10px; font-size: 13.5px; color: var(--ink2); }
+  .shift-strip { display: flex; flex-wrap: wrap; gap: 2px; font-size: 12px; }
+  .shift-tok { padding: 3px 5px; border-radius: 4px; }
+  footer { margin-top: 40px; color: var(--ink3); font-size: 12px; }
+  footer a { color: var(--temper); }
+</style>
+</head>
+<body>
+  <h1>forge-align</h1>
+  <div class="sub">
+    Same prompt, every model. The base model only continues text; each run to the right was aligned
+    with DPO at a different &beta;. Reward bars are the exact proxy signal DPO trained on &mdash;
+    they are not a claim that the story is good, only that it satisfies the constraint.
+  </div>
+  <div class="controls">
+    <select id="keyword"></select>
+    <select id="tone"><option value="happy">happy ending</option><option value="sad">sad ending</option></select>
+    <button id="go">Compare</button>
+    <span id="status" style="color: var(--ink3); font-size: 13px;"></span>
+  </div>
+  <div class="cards" id="cards"></div>
+  <div id="shiftWrap" style="display:none">
+    <div class="shift-title">Per-token probability shift after DPO (blue = more likely, red = less likely than the base model)</div>
+    <div class="shift-strip" id="shiftStrip"></div>
+  </div>
+  <footer>
+    <a href="https://github.com/EllE961/forge-align">github.com/EllE961/forge-align</a> &middot;
+    built on <a href="https://github.com/EllE961/forge-llm">forge-llm</a>
+  </footer>
+
+<script>
+const KEYWORDS = ["dragon","puppy","garden","kite","robot","forest","birthday","ocean","star","cookie",
+                   "balloon","rabbit","castle","train","snow","butterfly","treehouse","pirate","rainbow","turtle"];
+const kwSel = document.getElementById("keyword");
+KEYWORDS.forEach(k => { const o = document.createElement("option"); o.value = k; o.textContent = k; kwSel.appendChild(o); });
+
+const COLORS = {keyword: "var(--ember)", ending: "var(--temper)", length: "var(--purple)", diversity: "var(--green)"};
+const btn = document.getElementById("go");
+const statusEl = document.getElementById("status");
+
+function barRow(label, value, color) {
+  const pct = Math.round(value * 100);
+  return `<div class="bar-row"><span>${label}</span>
+    <div class="bar-track"><div class="bar-fill" style="width:${pct}%; background:${color}"></div></div>
+    <span>${pct}%</span></div>`;
+}
+
+function card(name, data) {
+  const r = data.reward;
+  return `<div class="card">
+    <h3>${name}<span class="total">${Math.round(r.total * 100)}%</span></h3>
+    <p>${data.text.replace(/</g, "&lt;")}</p>
+    <div class="bars">
+      ${barRow("keyword", r.keyword, COLORS.keyword)}
+      ${barRow("ending", r.ending, COLORS.ending)}
+      ${barRow("length", r.length, COLORS.length)}
+      ${barRow("diversity", r.diversity, COLORS.diversity)}
+    </div>
+  </div>`;
+}
+
+function renderShift(shift) {
+  const wrap = document.getElementById("shiftWrap");
+  if (!shift) { wrap.style.display = "none"; return; }
+  wrap.style.display = "block";
+  const diffs = shift.tokens.map((_, i) => shift.policy_logp[i] - shift.ref_logp[i]);
+  const vmax = Math.max(...diffs.map(Math.abs), 1e-6);
+  const strip = document.getElementById("shiftStrip");
+  strip.innerHTML = shift.tokens.map((tok, i) => {
+    const t = (diffs[i] / vmax + 1) / 2; // 0..1
+    const r = Math.round(255 * Math.min(1, 2 - 2 * t));
+    const b = Math.round(255 * Math.min(1, 2 * t));
+    return `<span class="shift-tok" style="background: rgba(${r},90,${b},0.55)" title="${diffs[i].toFixed(2)} nats">${tok.replace(/</g,"&lt;")}</span>`;
+  }).join("");
+}
+
+async function run() {
+  btn.disabled = true;
+  statusEl.textContent = "generating from every model on the GPU — a few seconds each…";
+  document.getElementById("cards").innerHTML = "";
+  try {
+    const res = await fetch("/api/compare", {
+      method: "POST", headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({keyword: kwSel.value, tone: document.getElementById("tone").value, seed: Date.now() % 100000})
+    });
+    const data = await res.json();
+    const cardsEl = document.getElementById("cards");
+    cardsEl.innerHTML = card("base (unaligned)", data.base) +
+      Object.keys(data).filter(k => k.startsWith("dpo-")).map(k => card(k, data[k])).join("");
+    renderShift(data.token_shift);
+    statusEl.textContent = "";
+  } catch (e) {
+    statusEl.textContent = "generation failed — is `python -m align.server` running with trained checkpoints under runs/?";
+  }
+  btn.disabled = false;
+}
+btn.addEventListener("click", run);
+</script>
+</body>
+</html>

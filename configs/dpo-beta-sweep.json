@@ -1,0 +1,5 @@
+{
+  "description": "Every run below trains on the same preference pairs; only beta (the implicit KL penalty) changes.",
+  "betas": [0.02, 0.1, 0.3, 1.0],
+  "runs": ["dpo-beta0.02", "dpo-beta0.1", "dpo-beta0.3", "dpo-beta1.0"]
+}
