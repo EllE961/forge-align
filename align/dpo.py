@@ -132,17 +132,22 @@ def train(cfg: DPOConfig) -> Path:
                       f"margin {rec['reward_margin']:+.3f} acc {rec['acc']:.2f}")
 
             if step % cfg.ckpt_interval == 0 and step > 0:
-                _save(policy, cfg, out_dir / f"step{step}.pt")
+                _save(policy, cfg, out_dir / f"step{step}.pt", step)
             step += 1
 
     final = out_dir / "best.pt"
-    _save(policy, cfg, final)
+    _save(policy, cfg, final, step)
     print(f"[dpo:{cfg.run_name}] done: {step} steps, {time.perf_counter() - t0:.0f}s -> {final}")
     return final
 
 
-def _save(model, cfg: DPOConfig, path: Path) -> None:
-    torch.save({"model": model.state_dict(), "config": asdict(model.cfg), "dpo_config": asdict(cfg)}, path)
+def _save(model, cfg: DPOConfig, path: Path, step: int) -> None:
+    """``step`` is stored in the checkpoint itself -- evaluate.py reads it back rather than
+    guessing from the filename, so ``best.pt`` (the final checkpoint) is never confused with
+    step 0 (the untouched base model, which is evaluated separately as its own reference row).
+    """
+    state = {"model": model.state_dict(), "config": asdict(model.cfg), "dpo_config": asdict(cfg), "step": step}
+    torch.save(state, path)
 
 
 def main(argv: list[str] | None = None) -> None:

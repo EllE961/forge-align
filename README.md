@@ -2,12 +2,15 @@
 
 # Forge-Align
 
-**DPO alignment, from scratch, for [Forge](https://github.com/EllE961/forge-llm) -- and the reward hacking it causes, measured and shown, not just claimed.**
+**DPO alignment, from scratch, for [Forge](https://github.com/EllE961/forge-llm) -- built to catch reward hacking if
+it happens, and to report honestly that, at this scale, something more interesting happened instead.**
 
 ![python](https://img.shields.io/badge/python-3.10+-1f1d1b?style=flat-square&labelColor=0d0c0b)
 ![pytorch](https://img.shields.io/badge/pytorch-1.13%20%7C%202.x-d95926?style=flat-square&labelColor=0d0c0b)
 ![tests](https://img.shields.io/badge/tests-13%20passing-3987e5?style=flat-square&labelColor=0d0c0b)
 ![license](https://img.shields.io/badge/license-MIT-1f1d1b?style=flat-square&labelColor=0d0c0b)
+
+<img src="docs/assets/beta_sweep.png" width="100%" alt="constraint satisfaction vs. held-out fluency across four DPO beta values">
 
 </div>
 
@@ -16,6 +19,12 @@ Most "I built a language model from scratch" projects stop at pretraining. This 
 *looking like* it satisfies whatever you're measuring? Both DPO and the measurement that catches it are implemented
 here from first principles, on top of [`forge-llm`](https://github.com/EllE961/forge-llm), the 27M-parameter
 Llama-style model I trained from scratch in that repo.
+
+**What actually happened, in one sentence:** the textbook reward-hacking curve (proxy up, true quality down) never
+clearly showed up -- instead, the most tightly-constrained run (beta=1.0) overfit 28 training pairs so hard it got
+*worse* than the untouched base model on both axes, while the least-constrained run (beta=0.02) generalised best and
+even came out *more* fluent, not less. Both are real failure/success modes worth knowing about; neither is the one
+this repo set out to find, and both are reported as measured, below.
 
 ## The setup
 
@@ -64,18 +73,70 @@ flowchart LR
 
 ## Results
 
-> **Status:** the base model and the DPO sweep are training now. This section is filled in with real numbers --
-> measured on an RTX 3080, the same machine `forge-llm`'s numbers came from -- the moment each run finishes, not
-> written in advance. Nothing below is a placeholder number; it is either measured or explicitly marked pending.
+All numbers below are measured on the RTX 3080 that produced `forge-llm`'s numbers, re-running the exact commands
+in [Quickstart](#quickstart) -- nothing here is hand-picked except the single qualitative example, which is labelled
+as such.
 
-- [ ] Base model re-trained to the loss/perplexity reported in `forge-llm` (sanity check that this repo's copy
-      behaves the same as the original)
-- [ ] Preference pairs generated for the train and eval task splits
-- [ ] DPO trained at beta in {0.02, 0.1, 0.3, 1.0}
-- [ ] `docs/assets/reward_hacking.png` -- proxy reward vs. held-out fluency over training steps
-- [ ] `docs/assets/training_dynamics.png` -- DPO loss, implicit reward margin, pairwise accuracy
-- [ ] `docs/assets/beta_sweep.png` -- the alignment tax: constraint satisfaction vs. fluency, across beta
-- [ ] `docs/assets/token_shift.png` and the live playground's per-token view -- which tokens got more/less likely
+**Base model** (re-trained from scratch for this repo, not reused from `forge-llm`'s run): 26.7M parameters, 8,109
+steps, 265.7M tokens, 75.1 minutes, best validation loss **1.2716** (perplexity 3.57) -- in line with (slightly
+better than) the original run, a sanity check that this copy behaves the same way. **Preference pairs:** 28/28
+training tasks and 12/12 held-out tasks produced a usable chosen/rejected pair; none were skipped for lacking signal.
+
+| beta | proxy reward (held out) | true fluency (held out) | vs. base |
+|---|---|---|---|
+| base model (no DPO) | 0.294 | -2.504 | -- |
+| 0.02 | **0.344** (+17.0%) | **-2.360** (better) | better on both axes |
+| 0.10 | 0.336 (+14.3%) | -2.542 (worse) | better reward, worse fluency |
+| 0.30 | 0.342 (+16.3%) | -2.614 (worse) | better reward, worse fluency |
+| 1.00 | 0.287 (-2.4%, worse than base) | -2.629 (worse) | **worse on both axes** |
+
+<img src="docs/assets/beta_sweep.png" width="100%" alt="constraint satisfaction vs. held-out fluency across four DPO beta values">
+
+Reading left to right as beta increases: held-out proxy reward and held-out fluency move *together*, not against
+each other. The loosest constraint (beta=0.02) is both the most constraint-satisfying and the most fluent of the
+four; the tightest (beta=1.0) is both the least constraint-satisfying -- worse than never aligning at all -- and the
+least fluent. That is the opposite of a classic reward-hacking curve, and it is what 28 preference pairs actually
+produced.
+
+<img src="docs/assets/overfitting_trajectory.png" width="100%" alt="beta=1.0: proxy reward and fluency rise together then fall together over DPO training steps">
+
+The beta=1.0 trajectory shows why: proxy and fluency rise together for the first 20 steps, then **fall together**
+and never recover, ending below the untouched base model on both. Chasing 28 examples too hard with too little
+tolerance for drift from the reference doesn't trade fluency for reward -- it loses both, which is overfitting, not
+reward hacking. (All four betas land on nearly identical values at step 20; 20 steps at `lr=1e-5` move the weights
+little enough that sampling at temperature 0.9 mostly reproduces the same tokens regardless of beta. The runs only
+diverge from step 40 on.)
+
+<img src="docs/assets/training_dynamics.png" width="100%" alt="DPO loss, implicit reward margin and pairwise accuracy over training, beta=1.0">
+
+Internally, DPO training "succeeds" by every number it can see: loss collapses to ~0, the implicit reward margin
+between chosen and rejected explodes past +20 nats, pairwise training accuracy hits 1.0 -- all within 30 steps, on
+28 pairs seen 3 times. That is textbook overfitting of a tiny preference set, and it is exactly why the held-out
+numbers above matter more than anything `align/dpo.py` prints while training.
+
+**One concrete before/after**, same prompt and seed, base model vs. the beta=0.02 policy (the strongest run):
+
+> **Prompt:** *Write a short story about a dragon. The story should end happy.*
+>
+> **Base model:** "...there was a girl named Lucy who loved to cook. She had many meals to eat and she always made
+> everyone around her smile. One day, the wind blew hard outside, making everything freeze up. Everything got
+> frozen in place! Lucy couldn't help but feel a little bit sad because no one wanted to play with her anymore..."
+> *(no dragon; drifts sad despite being asked for happy -- reward 0.24)*
+>
+> **DPO-aligned (beta=0.02):** "...there was a big black dragon who loved to cook. He lived in a dark cave near the
+> sea. Every day at noon, he would go out and make soup for all his friends. One sunny Sunday, a little boy named
+> Tim came to the castle. 'Hello,' said Tim with a big smile on his face. 'What are you making?' asked the dragon.
+> 'I am cooking something yummy!' said Tim, excited to try it." *(keeps the dragon, stays cheerful throughout --
+> reward 0.64)*
+
+<img src="docs/assets/token_shift.png" width="100%" alt="per-token probability shift after DPO for the dragon example above">
+
+The token-level view of that same completion is the one genuinely surprising figure in this repo: the word
+**"dragon" itself is colder (less likely) under the aligned model than under the base model**, at the exact position
+it appears. DPO didn't simply boost the keyword's own token everywhere -- "who" and "black" immediately around it
+got warmer instead. Whatever DPO changed about this model, it was not a lookup-table bump on the one word being
+scored; the shift is diffuse across the surrounding context, which is also a small, honest piece of evidence against
+the crudest version of "the model just learned to game the keyword check."
 
 ## Why this design
 
@@ -134,22 +195,32 @@ make test                # 13 tests, CPU-only, no checkpoint required
 
 ## Limitations and next steps
 
+- **The ending-tone constraint is much harder to satisfy than the keyword constraint at the generation length used
+  here (90 tokens).** In every high-scoring example sampled for this README, the story is still mid-scene at token
+  90 -- the keyword lands early and reliably, but the lexicon-based tone check, which only looks at the last one or
+  two sentences, rarely has a resolved "happy ending" sentence to look at yet. The `ending` sub-score is close to
+  zero even for the best completions shown above. A shorter target length or a tone check that scores the *whole*
+  completion, not just its tail, would likely close this gap -- it wasn't changed after the fact to keep the
+  reported numbers matched to what was actually run.
 - The reward is lexicon-based and English-only; a dragon story that says "overjoyed" instead of "happy" scores zero
   on tone even though a human would call it a clear pass. That's a real limitation of rule-based rewards, not swept
   under the rug -- it's also exactly the kind of gap a learned reward model exists to close, at the cost of needing
   one.
-- 40 tasks and a 27M-parameter base model keep this tractable on one GPU, but mean the preference dataset is small.
-  The reward-hacking effect, if it shows up, should be read as a demonstration on this scale, not a claim that scales
-  linearly with model or data size.
-- A natural follow-up: train a small learned reward model on the same best/worst-of-K data, and compare its
-  hacking surface to the rule-based one's.
+- 40 tasks and a 27M-parameter base model keep this tractable on one GPU, but mean the preference dataset is small --
+  28 training pairs. That smallness is very likely *why* beta=1.0 overfits instead of hacking the reward: there
+  isn't enough data for the policy to find a cheap, generalising exploit, only enough to memorise the training set.
+  Reward hacking in the textbook sense tends to show up with more data and more optimisation pressure, not less;
+  this result should be read as what happens at this scale, not a claim that it generalises to larger ones.
+- A natural follow-up: train a small learned reward model on the same best/worst-of-K data, and see whether a
+  *learned* reward is harder or easier to overfit than this rule-based one at the same data scale.
 
 ## References
 
 - Rafailov, R. et al. (2023). *Direct Preference Optimization: Your Language Model is Secretly a Reward Model.*
 - Ouyang, L. et al. (2022). *Training language models to follow instructions with human feedback* (InstructGPT / RLHF).
 - Gao, L., Schulman, J., Hilton, J. (2022). *Scaling Laws for Reward Model Overoptimization* -- the reward-hacking
-  curve this repo's `reward_hacking.png` is directly inspired by.
+  curve this repo's evaluation harness was built to look for (`docs/assets/beta_sweep.png`,
+  `docs/assets/overfitting_trajectory.png` show what was found instead, at this data scale).
 - Eldan, R., Li, Y. (2023). *TinyStories: How Small Can Language Models Be and Still Speak Coherent English?*
 
 ## License

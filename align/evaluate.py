@@ -21,8 +21,14 @@ from align import model_utils, reward
 from align.prompts import split_tasks
 
 
-def evaluate_checkpoint(ckpt_path: str | Path, base_model, tokenizer, tasks, samples_per_task: int = 3) -> dict:
+def evaluate_checkpoint(
+    ckpt_path: str | Path, base_model, tokenizer, tasks, samples_per_task: int = 3, step: int | None = None
+) -> dict:
     policy = model_utils.load_model(ckpt_path)
+    if step is None:
+        # trained checkpoints carry their own step (see align.dpo._save); the base checkpoint
+        # does not, and is always step 0 -- the untouched reference everything else is judged against.
+        step = policy.checkpoint_meta.get("step", 0)
     proxy_scores, fluency_scores = [], []
     examples = []
     for ti, task in enumerate(tasks):
@@ -40,6 +46,7 @@ def evaluate_checkpoint(ckpt_path: str | Path, base_model, tokenizer, tasks, sam
     n = len(proxy_scores)
     return {
         "checkpoint": str(ckpt_path),
+        "step": step,
         "n": n,
         "proxy_reward_mean": sum(proxy_scores) / n,
         "true_fluency_mean": sum(fluency_scores) / n,
@@ -57,14 +64,16 @@ def evaluate_run(run_name: str, runs_dir: str = "runs", out_dir: str = "results"
     ckpts.append(run_dir / "best.pt")
 
     rows = []
-    base_eval = evaluate_checkpoint(model_utils.DEFAULT_CHECKPOINT, base_model, tokenizer, eval_tasks, samples_per_task)
-    base_eval["step"] = 0
+    base_eval = evaluate_checkpoint(
+        model_utils.DEFAULT_CHECKPOINT, base_model, tokenizer, eval_tasks, samples_per_task, step=0
+    )
     rows.append(base_eval)
+    print(f"[evaluate] {run_name} step {base_eval['step']:>5} (base) proxy {base_eval['proxy_reward_mean']:.3f} "
+          f"fluency {base_eval['true_fluency_mean']:.3f}")
     for ckpt in ckpts:
         if not ckpt.exists():
             continue
         row = evaluate_checkpoint(ckpt, base_model, tokenizer, eval_tasks, samples_per_task)
-        row["step"] = 0 if ckpt.name == "best.pt" else int(ckpt.stem.replace("step", ""))
         rows.append(row)
         print(f"[evaluate] {run_name} step {row['step']:>5} proxy {row['proxy_reward_mean']:.3f} "
               f"fluency {row['true_fluency_mean']:.3f}")

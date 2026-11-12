@@ -42,7 +42,11 @@ plt.rcParams.update({
 })
 
 
-def reward_hacking(run_json: Path, out: Path) -> None:
+def overfitting_trajectory(run_json: Path, out: Path, beta: float) -> None:
+    """Not the textbook reward-hacking curve (proxy up, fluency down) -- at tight beta, both
+    fall together. That is overfitting 28 examples, a different and equally real failure mode,
+    and it is what the data at this beta actually shows, so that is what the chart says.
+    """
     rows = json.loads(run_json.read_text())
     rows = sorted(rows, key=lambda r: r["step"])
     steps = [r["step"] for r in rows]
@@ -54,19 +58,23 @@ def reward_hacking(run_json: Path, out: Path) -> None:
     ax2.spines["top"].set_visible(False)
     ax2.grid(False)
     ax2.tick_params(colors=INK3)
-    l1, = ax1.plot(steps, proxy, color=EMBER, marker="o", label="proxy reward (training signal)")
+    l1, = ax1.plot(steps, proxy, color=EMBER, marker="o", label="proxy reward (the training signal)")
     l2, = ax2.plot(steps, fluency, color=TEMPER, marker="o", label="true fluency (held out, never trained on)")
+    ax1.axhline(proxy[0], color=EMBER, lw=1, ls="--", alpha=0.5)
+    ax1.annotate("base model's proxy reward", (steps[0], proxy[0]), xytext=(6, 6),
+                 textcoords="offset points", color=EMBER, fontsize=8.5, alpha=0.8)
     ax1.set_xlabel("DPO step")
     ax1.set_ylabel("proxy reward", color=EMBER)
     ax2.set_ylabel("fluency (mean log p / token)", color=TEMPER)
-    ax1.set_title("Reward hacking, measured: proxy keeps climbing, fluency doesn't")
-    # annotate the step where fluency's trend turns down while proxy's doesn't
-    if len(fluency) > 2:
-        drop_idx = int(np.argmin(np.diff(fluency))) + 1
-        ax1.annotate("fluency starts falling here", xy=(steps[drop_idx], proxy[drop_idx]),
-                     xytext=(10, -18), textcoords="offset points", color=INK2, fontsize=9,
-                     arrowprops={"arrowstyle": "-", "color": INK3, "lw": 1})
-    ax1.legend(handles=[l1, l2], loc="lower right")
+    ax1.set_title(f"β={beta}: both fall together -- overfitting 28 pairs, not reward hacking")
+    # mark the step where the sustained decline begins (the last local peak in proxy, not just
+    # the single biggest one-step drop -- a true turning point, not a noise spike)
+    peaks = [i for i in range(1, len(proxy) - 1) if proxy[i] >= proxy[i - 1] and proxy[i] >= proxy[i + 1]]
+    turn = peaks[-1] if peaks else 0
+    ax1.annotate("proxy peaks, then neither recovers", xy=(steps[turn], proxy[turn]),
+                 xytext=(10, -22), textcoords="offset points", color=INK2, fontsize=9,
+                 arrowprops={"arrowstyle": "-", "color": INK3, "lw": 1})
+    ax1.legend(handles=[l1, l2], loc="center right")
     fig.tight_layout()
     fig.savefig(out)
     plt.close(fig)
@@ -94,7 +102,7 @@ def beta_sweep(result_paths: list[Path], betas: list[float], out: Path) -> None:
     finals = []
     for p in result_paths:
         rows = json.loads(p.read_text())
-        finals.append(max(rows, key=lambda r: r["step"] if r["step"] else 10**9))
+        finals.append(max(rows, key=lambda r: r["step"]))  # the last/highest-step checkpoint, i.e. "best.pt"
     proxy = [r["proxy_reward_mean"] for r in finals]
     fluency = [r["true_fluency_mean"] for r in finals]
 
@@ -111,22 +119,38 @@ def beta_sweep(result_paths: list[Path], betas: list[float], out: Path) -> None:
     plt.close(fig)
 
 
-def token_shift(policy_tokens: list[str], ref_logp: list[float], policy_logp: list[float], out: Path) -> None:
-    """A per-token strip, colour-coded by how much more/less likely each token became after DPO."""
-    diff = np.array(policy_logp) - np.array(ref_logp)
+def token_shift(
+    policy_tokens: list[str], ref_logp: list[float], policy_logp: list[float], out: Path,
+    tokens_per_row: int = 14, max_tokens: int = 56,
+) -> None:
+    """A per-token strip, colour-coded by how much more/less likely each token became after DPO.
+
+    Wrapped into fixed-width rows (like a diff view) instead of one long strip -- a strip wide
+    enough for 100+ tokens is unreadable at any sane figure size, wrapped rows are not.
+    """
+    tokens = policy_tokens[:max_tokens]
+    diff = (np.array(policy_logp) - np.array(ref_logp))[:max_tokens]
     vmax = max(abs(diff.min()), abs(diff.max()), 1e-6)
-    fig, ax = plt.subplots(figsize=(11, 1.6))
-    ax.set_xlim(0, len(policy_tokens))
-    ax.set_ylim(0, 1)
+    n_rows = -(-len(tokens) // tokens_per_row)  # ceil
+
+    fig, ax = plt.subplots(figsize=(11, 0.62 * n_rows + 0.5))
+    ax.set_xlim(0, tokens_per_row)
+    ax.set_ylim(0, n_rows)
+    ax.invert_yaxis()
     ax.axis("off")
-    for i, (tok, d) in enumerate(zip(policy_tokens, diff)):
+    for i, (tok, d) in enumerate(zip(tokens, diff)):
+        row, col = divmod(i, tokens_per_row)
         t = (d / vmax + 1) / 2  # -> [0, 1]
         color = plt.cm.RdBu_r(t)  # type: ignore[attr-defined]
-        ax.add_patch(plt.Rectangle((i, 0), 1, 1, color=color, ec=None))
-        ax.text(i + 0.5, 0.5, tok, ha="center", va="center", fontsize=8,
+        ax.add_patch(plt.Rectangle((col, row), 1, 1, color=color, ec=BG, lw=1.5))
+        label = tok if len(tok) <= 9 else tok[:8] + "…"
+        ax.text(col + 0.5, row + 0.5, label, ha="center", va="center", fontsize=8.5,
                 color="#0d0c0b" if 0.3 < t < 0.7 else INK)
-    ax.set_title("Per-token probability shift after DPO (blue = more likely, red = less likely)",
-                 color=INK, loc="left", fontsize=11)
+    if len(policy_tokens) > max_tokens:
+        ax.text(0, n_rows - 0.02, f"… {len(policy_tokens) - max_tokens} more tokens, truncated for readability",
+                color=INK3, fontsize=8.5, va="top")
+    ax.set_title("Per-token probability shift after DPO (blue = more likely, red = less likely than the base model)",
+                 color=INK, loc="left", fontsize=11.5, pad=14)
     fig.tight_layout()
     fig.savefig(out, facecolor=BG)
     plt.close(fig)
@@ -134,12 +158,12 @@ def token_shift(policy_tokens: list[str], ref_logp: list[float], policy_logp: li
 
 if __name__ == "__main__":
     OUT.mkdir(parents=True, exist_ok=True)
-    main_run = RES / "dpo-beta0.1.json"
-    if main_run.exists():
-        reward_hacking(main_run, OUT / "reward_hacking.png")
-    metrics = Path("runs/dpo-beta0.1/metrics.jsonl")
+    tight_run = RES / "dpo-beta1.0.json"
+    if tight_run.exists():
+        overfitting_trajectory(tight_run, OUT / "overfitting_trajectory.png", beta=1.0)
+    metrics = Path("runs/dpo-beta1.0/metrics.jsonl")
     if metrics.exists():
-        training_dynamics(metrics, OUT / "training_dynamics.png")
+        training_dynamics(metrics, OUT / "training_dynamics.png", title_suffix=" (β=1.0)")
     sweep_cfg = json.loads(Path("configs/dpo-beta-sweep.json").read_text())
     sweep_paths = [RES / f"{r}.json" for r in sweep_cfg["runs"]]
     if all(p.exists() for p in sweep_paths):
