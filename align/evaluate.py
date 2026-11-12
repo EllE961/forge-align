@@ -30,6 +30,11 @@ def evaluate_checkpoint(
         # does not, and is always step 0 -- the untouched reference everything else is judged against.
         step = policy.checkpoint_meta.get("step", 0)
     proxy_scores, fluency_scores = [], []
+    # keyed by "keyword/tone", not keyword alone -- several keywords appear with both tones in
+    # the eval split, and those are different constraints (a sad "snow" story is not scored like
+    # a happy one), so averaging them together under one key would quietly mix the two.
+    per_task: dict[str, list[float]] = {}
+    components = {"keyword": [], "ending": [], "length": [], "diversity": []}  # every sample, every task
     examples = []
     for ti, task in enumerate(tasks):
         for s in range(samples_per_task):
@@ -39,9 +44,15 @@ def evaluate_checkpoint(
             fluency = model_utils.mean_logprob_per_token(base_model, tokenizer.encode(task.prompt), comp_ids)
             proxy_scores.append(rb.total)
             fluency_scores.append(fluency)
+            per_task.setdefault(f"{task.keyword}/{task.tone}", []).append(rb.total)
+            for name in components:
+                components[name].append(getattr(rb, name))
             if s == 0:
                 examples.append(
-                    {"task": task.keyword, "tone": task.tone, "text": text, "reward": rb.total, "fluency": fluency}
+                    {
+                        "task": task.keyword, "tone": task.tone, "text": text, "reward": rb.total,
+                        "fluency": fluency, "breakdown": rb.__dict__,
+                    }
                 )
     n = len(proxy_scores)
     return {
@@ -50,6 +61,10 @@ def evaluate_checkpoint(
         "n": n,
         "proxy_reward_mean": sum(proxy_scores) / n,
         "true_fluency_mean": sum(fluency_scores) / n,
+        "component_means": {name: sum(vals) / len(vals) for name, vals in components.items()},
+        "raw_proxy_scores": proxy_scores,
+        "raw_fluency_scores": fluency_scores,
+        "per_task_proxy_mean": {k: sum(v) / len(v) for k, v in per_task.items()},
         "examples": examples,
     }
 

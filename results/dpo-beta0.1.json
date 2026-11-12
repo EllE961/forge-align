@@ -5,90 +5,270 @@
     "n": 36,
     "proxy_reward_mean": 0.29370939970939974,
     "true_fluency_mean": -2.504220631526879,
+    "component_means": {
+      "keyword": 0.05555555555555555,
+      "ending": 0.05555555555555555,
+      "length": 0.30333333333333334,
+      "diversity": 0.9985469985469986
+    },
+    "raw_proxy_scores": [
+      0.29600000000000004,
+      0.264,
+      0.256,
+      0.264,
+      0.232,
+      0.49,
+      0.63,
+      0.28800000000000003,
+      0.264,
+      0.272,
+      0.24,
+      0.248,
+      0.522,
+      0.31200000000000006,
+      0.232,
+      0.248,
+      0.264,
+      0.264,
+      0.2454025974025974,
+      0.24,
+      0.272,
+      0.28800000000000003,
+      0.29600000000000004,
+      0.232,
+      0.28,
+      0.256,
+      0.28800000000000003,
+      0.23743589743589744,
+      0.216,
+      0.2454025974025974,
+      0.5740000000000001,
+      0.272,
+      0.2692972972972973,
+      0.216,
+      0.31200000000000006,
+      0.248
+    ],
+    "raw_fluency_scores": [
+      -3.364062636645872,
+      -2.5054630952722885,
+      -2.897562363568474,
+      -2.0605621337890625,
+      -2.4989395141601562,
+      -2.696653029497932,
+      -2.5498435076545265,
+      -2.5037348130170036,
+      -1.9451235602883732,
+      -2.3554579790900734,
+      -2.9233898836023666,
+      -2.2808258954216454,
+      -2.423013126148897,
+      -3.2617928000057446,
+      -2.6413044649011947,
+      -2.961690566119026,
+      -3.017285739674288,
+      -2.0111294914694393,
+      -2.5057534610523895,
+      -2.2378840726964615,
+      -2.2215051090016082,
+      -1.6099013160256779,
+      -2.201015696806066,
+      -2.422438004437615,
+      -2.871884332186934,
+      -2.292354808134191,
+      -2.4768849541159237,
+      -2.6378290512982536,
+      -2.8900148728314567,
+      -2.400355170754825,
+      -2.3222817813648895,
+      -2.3268818574793197,
+      -2.205599167767693,
+      -2.2886370490579044,
+      -3.0218873865464153,
+      -2.3210000430836395
+    ],
+    "per_task_proxy_mean": {
+      "snow/happy": 0.272,
+      "cookie/happy": 0.32866666666666666,
+      "forest/sad": 0.39399999999999996,
+      "butterfly/happy": 0.25333333333333335,
+      "cookie/sad": 0.35533333333333333,
+      "castle/sad": 0.25866666666666666,
+      "butterfly/sad": 0.25246753246753245,
+      "treehouse/happy": 0.272,
+      "star/happy": 0.27466666666666667,
+      "puppy/happy": 0.23294616494616494,
+      "train/happy": 0.3717657657657658,
+      "castle/happy": 0.25866666666666666
+    },
     "examples": [
       {
         "task": "snow",
         "tone": "happy",
         "text": " there was an ignorant girl who needed to find the right way home. She had an urge that seemed like schoolmoney and sadness could make her life more alive with more money. \nSo she set off on a journey. As she walked along, the path of fog began to change direction overflowing. Soon enough, it became her own instandment! It made the most beautiful noise, growl and shiver with delight as she crossed",
         "reward": 0.29600000000000004,
-        "fluency": -3.364062636645872
+        "fluency": -3.364062636645872,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.48,
+          "diversity": 1.0,
+          "total": 0.29600000000000004
+        }
       },
       {
         "task": "cookie",
         "tone": "happy",
         "text": " there was a little boy named Tim. He loved to play in the dirt and get filthy all over his clothes and toys. One day, while playing outside, he found a small box hidden under his bed.\nTim opened the treasure box and saw many beautiful things inside. There were shiny rocks, soft feathers, and even some funny hats! Tim took out one pretty hat from his pocket and put it on his head. \"Wow!\" said Sam,",
         "reward": 0.264,
-        "fluency": -2.0605621337890625
+        "fluency": -2.0605621337890625,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.31999999999999995,
+          "diversity": 1.0,
+          "total": 0.264
+        }
       },
       {
         "task": "forest",
         "tone": "sad",
         "text": " in the middle of the forest, there was an enormous tree with lots of shade.\nSuddenly, a small rabbit hopped up to it and said \"Hello! What's your name?\"\nThe tree smiled and said: \u201cMy name is Joe.\u201d\nJoe then shook his head yes and started talking about what he wanted for dinner. He asked the girl who lived nearby why she had shared the huge tree with him. \n\"That sounds very important,\" Joe replied.",
         "reward": 0.63,
-        "fluency": -2.5498435076545265
+        "fluency": -2.5498435076545265,
+        "breakdown": {
+          "keyword": 1.0,
+          "ending": 0.0,
+          "length": 0.4,
+          "diversity": 1.0,
+          "total": 0.63
+        }
       },
       {
         "task": "butterfly",
         "tone": "happy",
         "text": " there was a wise owl who lived in the woods. One day, he went for a walk and came across an old, old chest. Inside it were lots of treasures! He picked up one of them and took a big bite out.\nSuddenly, the sound from inside broke into pieces. A voice spoke to him!\n\u201cWhat are you doing?\u201d asked a little girl.\n\u201cI want that lovely thing,\u201d said the owl. \u201cPlease give me back my",
         "reward": 0.272,
-        "fluency": -2.3554579790900734
+        "fluency": -2.3554579790900734,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.36,
+          "diversity": 1.0,
+          "total": 0.272
+        }
       },
       {
         "task": "cookie",
         "tone": "sad",
         "text": " there was an ordinary sunflower who lived in the woods. Every day it grew taller and its petals were lined up in the sunshine!\nOne night, something mysterious happened! All of a sudden, an old giant appeared.\nThe giant said to the sunflower, \"Let's have some fun!\"\nBut the sunflower did not want to share their steps with the giant. It shook his huge head sadly outested and refused to give him another chance.\nSuddenly the",
         "reward": 0.522,
-        "fluency": -2.423013126148897
+        "fluency": -2.423013126148897,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 1.0,
+          "length": 0.36,
+          "diversity": 1.0,
+          "total": 0.522
+        }
       },
       {
         "task": "castle",
         "tone": "sad",
         "text": " there was an old man who saw the sadness. He said to himself: \"I wish I could help\". \nSuddenly he had a plan! He wrote down all kinds of things like footprints and stones so that people could find their way back home in nature. Everyone's kindness could hear him from far away.\nSo he used his pocket money to buy some sunshine and grass for everyone else. So when it got dark outside, they would take it out",
         "reward": 0.248,
-        "fluency": -2.961690566119026
+        "fluency": -2.961690566119026,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.24,
+          "diversity": 1.0,
+          "total": 0.248
+        }
       },
       {
         "task": "butterfly",
         "tone": "sad",
         "text": " in a normal little town, there lived an old man and an ambulance. He was very kind and he helped many people when they needed it. Every day, the old man would drive his big red car to help someone who had problems.\nOne sunny day, while driving on their way, the old man saw another vehicle far away. This vehicle did not have any of its sides or dents, but it could also go around them. The old",
         "reward": 0.2454025974025974,
-        "fluency": -2.5057534610523895
+        "fluency": -2.5057534610523895,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.24,
+          "diversity": 0.987012987012987,
+          "total": 0.2454025974025974
+        }
       },
       {
         "task": "treehouse",
         "tone": "happy",
         "text": " in an ordinary town, there was a little boy named Tim. He loved to go for walks and play outside with his friends. One sunny day, as they were walking through the park, they found a small box of powder on the ground.\nTim picked up the powder and showed it to his friend, Sam. \"Look what I found!\" said Tim. \"It's so pretty,\" said Sam, excited too. They decided to keep the powder",
         "reward": 0.28800000000000003,
-        "fluency": -1.6099013160256779
+        "fluency": -1.6099013160256779,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.43999999999999995,
+          "diversity": 1.0,
+          "total": 0.28800000000000003
+        }
       },
       {
         "task": "star",
         "tone": "happy",
         "text": " there was an ice cream man who took care of everyone in the town and made them smile.\nM marrying a beautiful day they went to every vendorment selling delicious treats!\nThe End<|endoftext|>Lily liked peanuts very much. She had a big bag with peanut butter and cheese inside. But one day, her jar broke. The wheel fell off and hit Lily's foot. \"Ow! Ow!\" she cried. Her shoe covered her up.\nMommy heard",
         "reward": 0.28,
-        "fluency": -2.871884332186934
+        "fluency": -2.871884332186934,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.4,
+          "diversity": 1.0,
+          "total": 0.28
+        }
       },
       {
         "task": "puppy",
         "tone": "happy",
         "text": " there was an old man who loved to jog. He would watch the animals run and play in his garden every day.\nOne day he came across something delicious- food. It smelled so yummy and full of energy that the old man decided to take it with him and start eating it.\nAs the old man enjoyed the snack, he noticed there were other kids eating too! They all started eating different kinds of things; big trees, colorful flowers, tall",
         "reward": 0.23743589743589744,
-        "fluency": -2.6378290512982536
+        "fluency": -2.6378290512982536,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.19999999999999996,
+          "diversity": 0.9871794871794872,
+          "total": 0.23743589743589744
+        }
       },
       {
         "task": "train",
         "tone": "happy",
         "text": " there was an old man who wanted to fix the train station. He found a small broken rail and thought that maybe it could help the old lady at work. So he took some fixing tools from his garage and worked on all of the parts she had. After a few days, the old house was fixed!\nThe old lady's parents were so proud of him for helping her. They told him how grateful he looked after the subway and thanked them.\n",
         "reward": 0.5740000000000001,
-        "fluency": -2.3222817813648895
+        "fluency": -2.3222817813648895,
+        "breakdown": {
+          "keyword": 1.0,
+          "ending": 0.0,
+          "length": 0.12,
+          "diversity": 1.0,
+          "total": 0.5740000000000001
+        }
       },
       {
         "task": "castle",
         "tone": "happy",
         "text": " in an ordinary house, there lived a kind girl named Lisa who loved to eat cereal every morning.\nOne day when she went outside and saw the sky was getting dark. She thought to herself that maybe the rain had gone away but she knew it wasn't going to get colder and colder. So she packed up her bag with some of the things she wanted from her drawer which kept her cozy inside.\nAs Lisa walked back home, she heard her mommy",
         "reward": 0.216,
-        "fluency": -2.2886370490579044
+        "fluency": -2.2886370490579044,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.07999999999999996,
+          "diversity": 1.0,
+          "total": 0.216
+        }
       }
     ]
   },
@@ -98,90 +278,270 @@
     "n": 36,
     "proxy_reward_mean": 0.3299433380186805,
     "true_fluency_mean": -2.5000194879918323,
+    "component_means": {
+      "keyword": 0.08333333333333333,
+      "ending": 0.16666666666666666,
+      "length": 0.29666666666666663,
+      "diversity": 0.9988833567600691
+    },
+    "raw_proxy_scores": [
+      0.5660000000000001,
+      0.256,
+      0.232,
+      0.272,
+      0.232,
+      0.49,
+      0.6379999999999999,
+      0.28,
+      0.272,
+      0.248,
+      0.29600000000000004,
+      0.498,
+      0.248,
+      0.29600000000000004,
+      0.248,
+      0.29600000000000004,
+      0.248,
+      0.264,
+      0.2772602739726028,
+      0.2692972972972973,
+      0.248,
+      0.272,
+      0.49,
+      0.256,
+      0.272,
+      0.498,
+      0.264,
+      0.248,
+      0.256,
+      0.2454025974025974,
+      0.5740000000000001,
+      0.272,
+      0.248,
+      0.554,
+      0.514,
+      0.24
+    ],
+    "raw_fluency_scores": [
+      -2.804669099695542,
+      -2.6236980662626377,
+      -3.1921346327837776,
+      -2.063077590044807,
+      -2.4989395141601562,
+      -2.021170223460478,
+      -2.4225932850557217,
+      -2.3008200701545265,
+      -3.127349853515625,
+      -2.480573766371783,
+      -2.4588293187758503,
+      -2.2315364164464615,
+      -2.8578203986672794,
+      -3.4088740629308365,
+      -2.5672780205221737,
+      -3.075384252211627,
+      -3.1107613058651196,
+      -1.8988441018497242,
+      -2.4275131225585938,
+      -2.4243422115550324,
+      -2.92870600083295,
+      -2.04084934907801,
+      -1.999534382539637,
+      -1.7290597803452437,
+      -2.7552077349494484,
+      -2.678326326258042,
+      -2.5356781903435204,
+      -2.9480516770306755,
+      -1.5642158283906824,
+      -2.6357798856847428,
+      -2.3222817813648895,
+      -2.3268818574793197,
+      -2.2496048422420727,
+      -1.6940089955049402,
+      -2.932570962344899,
+      -2.663734660429113
+    ],
+    "per_task_proxy_mean": {
+      "snow/happy": 0.35133333333333333,
+      "cookie/happy": 0.3313333333333333,
+      "forest/sad": 0.39666666666666667,
+      "butterfly/happy": 0.3473333333333333,
+      "cookie/sad": 0.264,
+      "castle/sad": 0.26933333333333337,
+      "butterfly/sad": 0.2648525237566333,
+      "treehouse/happy": 0.3393333333333333,
+      "star/happy": 0.3446666666666667,
+      "puppy/happy": 0.2498008658008658,
+      "train/happy": 0.3646666666666667,
+      "castle/happy": 0.436
+    },
     "examples": [
       {
         "task": "snow",
         "tone": "happy",
         "text": " there was an ignorant girl who liked to play in the cold winter forest. One day, when she went into her warm igloo, it began to melt! Everything melted until it stopped. She started crying and then asked her mom what had happened.\nHer Mom told her that the ice had made a big damage in the igloo and was having to start adding more snow between her puppy and the bunny. It was too hard for the brave little girl but nothing",
         "reward": 0.5660000000000001,
-        "fluency": -2.804669099695542
+        "fluency": -2.804669099695542,
+        "breakdown": {
+          "keyword": 1.0,
+          "ending": 0.0,
+          "length": 0.07999999999999996,
+          "diversity": 1.0,
+          "total": 0.5660000000000001
+        }
       },
       {
         "task": "cookie",
         "tone": "happy",
         "text": " there was a little boy named Tim. He loved to play in the dirt and get filthy all over his clothes. One day, he saw an apple on a tree branch. \"I want that apple!\" said Tim.\nTim tried to climb the tree, but it seemed too slippery for him. So, he decided to stay away from the fall of string. As he went around, he thought about what the story said. \"When I go back",
         "reward": 0.272,
-        "fluency": -2.063077590044807
+        "fluency": -2.063077590044807,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.36,
+          "diversity": 1.0,
+          "total": 0.272
+        }
       },
       {
         "task": "forest",
         "tone": "sad",
         "text": " in the middle of the forest, there was an enormous tree with lots of shade.\nSuddenly, a small rabbit hopped up to it and said \"Hello! What's your name?\"\n\"My name is Sam,\" replied the tall tree.\nThe tiny rabbit smiled and asked if he wanted some company.\n\"Yes, please!\" replied Sam with a big smile.\nSam and the little rabbit shared stories from their fun day together as Gorsy continued on his journey.",
         "reward": 0.6379999999999999,
-        "fluency": -2.4225932850557217
+        "fluency": -2.4225932850557217,
+        "breakdown": {
+          "keyword": 1.0,
+          "ending": 0.0,
+          "length": 0.43999999999999995,
+          "diversity": 1.0,
+          "total": 0.6379999999999999
+        }
       },
       {
         "task": "butterfly",
         "tone": "happy",
         "text": " there was a wise owl who lived in the woods. One day, he went for a walk and saw some steam come from a little house across the road. He liked to watch it go by, and every one moved closer to take a better look at him.\nOne morning, the little bird heard something coming. It sounded like clapping - coming from inside! With one jumps, the bear opened his arms wide and looked around. There were two children",
         "reward": 0.248,
-        "fluency": -2.480573766371783
+        "fluency": -2.480573766371783,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.24,
+          "diversity": 1.0,
+          "total": 0.248
+        }
       },
       {
         "task": "cookie",
         "tone": "sad",
         "text": " there was an ordinary sunflower seed. It needed water to grow big and tall. Every day the sun shone brighter than ever before!\nOne night, something magical happened! All of his friends started to bloom up to each other! They were so excited for their new flower growing - it had been made by someone who decided it was loved! \nThe seed grew even taller every morning with its beautiful colors that brought happiness to everyone. From then on, the",
         "reward": 0.248,
-        "fluency": -2.8578203986672794
+        "fluency": -2.8578203986672794,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.24,
+          "diversity": 1.0,
+          "total": 0.248
+        }
       },
       {
         "task": "castle",
         "tone": "sad",
         "text": " there was an old man who saw the sadness. He said to himself: \"I wish I could help\". \nSuddenly he had a bright idea. So he said,\"What if we can restore your history?\". Aa and his father agreed. \nThe elderly man's kindness made them happy again. They discussed how important it is to always use things to make their history even better. Now they know that although ancient people understand us, it's",
         "reward": 0.29600000000000004,
-        "fluency": -3.075384252211627
+        "fluency": -3.075384252211627,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.48,
+          "diversity": 1.0,
+          "total": 0.29600000000000004
+        }
       },
       {
         "task": "butterfly",
         "tone": "sad",
         "text": " in a normal little town, there lived an old man and an ambulance. He was very kind and loved to help people. One day, he found a special thing called a \"magic\".\nThe old man said to the ambulance, \"I wish for more power.\" Suddenly, the cup of oxygen came out! Everyone was happy and surprised. They asked the old man many questions about his magic.\nOne by one, they got better with the magic",
         "reward": 0.2772602739726028,
-        "fluency": -2.4275131225585938
+        "fluency": -2.4275131225585938,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.4,
+          "diversity": 0.9863013698630136,
+          "total": 0.2772602739726028
+        }
       },
       {
         "task": "treehouse",
         "tone": "happy",
         "text": " in an ordinary town, there was a little boy named Tim. He loved to go for walks and play outside with his friends. One sunny day, as they were walking, they found some money on the ground.\nTim picked up the money and said, \"I think this is so good! Let's buy candy!\" His friend agreed, and they ran back home together.\nWhen they got home, Tim wanted to eat his favorite fruit with the money",
         "reward": 0.272,
-        "fluency": -2.04084934907801
+        "fluency": -2.04084934907801,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.36,
+          "diversity": 1.0,
+          "total": 0.272
+        }
       },
       {
         "task": "star",
         "tone": "happy",
         "text": " there was an ice cream man who took care of everyone in the town. He helped children feel better and made sure they had enough food to eat. But one day, something bad happened, the little girl went running outside with her mom and her friends. They were all not able to finish their payoff's reward, but that person said \"wow!\" and the mom smiled at them.\nThe mom knew what it meant. She told everyone",
         "reward": 0.272,
-        "fluency": -2.7552077349494484
+        "fluency": -2.7552077349494484,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.36,
+          "diversity": 1.0,
+          "total": 0.272
+        }
       },
       {
         "task": "puppy",
         "tone": "happy",
         "text": " there was an old man who loved to walk and look at the world around him. One day he took his camera out of his pocket and started walking.\nSuddenly, another big dog came running over to him! He said in a loud voice: \"You can't walk here!\" The old man felt embarrassed and scared so he shut his bag.\nThe other two dogs walked away from him with different noises and growls still. They were leaving their payo",
         "reward": 0.248,
-        "fluency": -2.9480516770306755
+        "fluency": -2.9480516770306755,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.24,
+          "diversity": 1.0,
+          "total": 0.248
+        }
       },
       {
         "task": "train",
         "tone": "happy",
         "text": " there was an old man who wanted to fix the train station. He found a small broken rail and thought that maybe it could help the old lady at work. So he took some fixing tools from his garage and worked on all of the parts she had. After a few days, the old house was fixed!\nThe old lady's parents were so proud of him for helping her. They told him how grateful he looked after the subway and thanked them.\n",
         "reward": 0.5740000000000001,
-        "fluency": -2.3222817813648895
+        "fluency": -2.3222817813648895,
+        "breakdown": {
+          "keyword": 1.0,
+          "ending": 0.0,
+          "length": 0.12,
+          "diversity": 1.0,
+          "total": 0.5740000000000001
+        }
       },
       {
         "task": "castle",
         "tone": "happy",
         "text": " in an ordinary house, there lived a kind girl named Lily and her pet dog, Max. They loved to play outside with Tim's friends. One sunny day, they went to the park to have fun.\nAt the park, Lily said to Max, \"Max, let's race!\" So, they ran as fast as they could. Max was very fast too. Lily laughed and clapped her hands. They all had a great time racing together.\n",
         "reward": 0.554,
-        "fluency": -1.6940089955049402
+        "fluency": -1.6940089955049402,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 1.0,
+          "length": 0.52,
+          "diversity": 1.0,
+          "total": 0.554
+        }
       }
     ]
   },
@@ -191,90 +551,270 @@
     "n": 36,
     "proxy_reward_mean": 0.3358586558969614,
     "true_fluency_mean": -2.4857290564438332,
+    "component_means": {
+      "keyword": 0.1111111111111111,
+      "ending": 0.1388888888888889,
+      "length": 0.3155555555555555,
+      "diversity": 0.9956821683736956
+    },
+    "raw_proxy_scores": [
+      0.5820000000000001,
+      0.28800000000000003,
+      0.63,
+      0.248,
+      0.5272602739726028,
+      0.264,
+      0.6379999999999999,
+      0.28,
+      0.264,
+      0.256,
+      0.562,
+      0.498,
+      0.256,
+      0.32,
+      0.232,
+      0.29600000000000004,
+      0.264,
+      0.264,
+      0.2402077922077922,
+      0.2692972972972973,
+      0.21353086419753084,
+      0.272,
+      0.264,
+      0.53,
+      0.256,
+      0.256,
+      0.28,
+      0.232,
+      0.256,
+      0.22974358974358972,
+      0.23487179487179488,
+      0.614,
+      0.24,
+      0.264,
+      0.514,
+      0.256
+    ],
+    "raw_fluency_scores": [
+      -2.7404417150160847,
+      -2.9907917695886947,
+      -2.3768936606014477,
+      -2.2047146067899814,
+      -1.657293992884019,
+      -2.7921218872070312,
+      -2.4225932850557217,
+      -2.3008200701545265,
+      -1.9451235602883732,
+      -2.5285278769100414,
+      -2.5520733104032627,
+      -2.2082737193388096,
+      -3.0024407330681298,
+      -3.0540937535903034,
+      -2.782827040728401,
+      -3.075384252211627,
+      -2.896114573759191,
+      -2.998376734116498,
+      -1.9030357809627758,
+      -2.4243422115550324,
+      -2.2870826721191406,
+      -2.04084934907801,
+      -2.159403183880974,
+      -2.9700112414004196,
+      -2.6946743235868564,
+      -2.559467315673828,
+      -2.570279738482307,
+      -2.3390870935776653,
+      -1.5825307509478401,
+      -2.4051735821892235,
+      -2.644331090590533,
+      -2.678634194766774,
+      -2.218631295596852,
+      -1.9763394524069393,
+      -2.932570962344899,
+      -2.5708952511058136
+    ],
+    "per_task_proxy_mean": {
+      "snow/happy": 0.5,
+      "cookie/happy": 0.346420091324201,
+      "forest/sad": 0.39399999999999996,
+      "butterfly/happy": 0.4386666666666667,
+      "cookie/sad": 0.26933333333333337,
+      "castle/sad": 0.27466666666666667,
+      "butterfly/sad": 0.2410119845675401,
+      "treehouse/happy": 0.35533333333333333,
+      "star/happy": 0.264,
+      "puppy/happy": 0.23924786324786326,
+      "train/happy": 0.36295726495726494,
+      "castle/happy": 0.3446666666666667
+    },
     "examples": [
       {
         "task": "snow",
         "tone": "happy",
         "text": " there was an ignorant girl who liked to play in the cold winter forest. One day, when she went into her warm igloo, it began to melt! Everything melted until it stopped. She started crying and then asked her mom what had happened.\nHer Mom told her that the ice had made a big damage in the igloo and was having to start adding more snow between her walls and floors. It was too hard for the girl's house and nothing",
         "reward": 0.5820000000000001,
-        "fluency": -2.7404417150160847
+        "fluency": -2.7404417150160847,
+        "breakdown": {
+          "keyword": 1.0,
+          "ending": 0.0,
+          "length": 0.16000000000000003,
+          "diversity": 1.0,
+          "total": 0.5820000000000001
+        }
       },
       {
         "task": "cookie",
         "tone": "happy",
         "text": " there was a little boy named Tim. He loved to play in the dirt. One sunny day, he went outside to get some mud and water. But when he came back, he saw something unexpected! His mud bowl was now full of mud! Tim was very surprised.\nTim thought it would be fun to clean up all the mess his mother made with mud. So, he picked up his mud pot and washed it away. When his mom saw",
         "reward": 0.248,
-        "fluency": -2.2047146067899814
+        "fluency": -2.2047146067899814,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.24,
+          "diversity": 1.0,
+          "total": 0.248
+        }
       },
       {
         "task": "forest",
         "tone": "sad",
         "text": " in the middle of the forest, there was an enormous tree with lots of shade.\nSuddenly, a small rabbit hopped up to it and said \"Hello! What's your name?\"\n\"My name is Sam,\" replied the tall tree.\nThe tiny rabbit smiled and asked if he wanted some company.\n\"Yes, please!\" replied Sam with a big smile.\nSam and the little rabbit shared stories from their fun day together as Gorsy continued on his journey.",
         "reward": 0.6379999999999999,
-        "fluency": -2.4225932850557217
+        "fluency": -2.4225932850557217,
+        "breakdown": {
+          "keyword": 1.0,
+          "ending": 0.0,
+          "length": 0.43999999999999995,
+          "diversity": 1.0,
+          "total": 0.6379999999999999
+        }
       },
       {
         "task": "butterfly",
         "tone": "happy",
         "text": " there was a wise owl who lived in the woods. One day, he went for a walk and saw some birds with beautiful colorful feathers perched on a branch. He liked them so much that it made him very happy.\nThen, something strange happened! It started to get dark and cold. Suddenly, an angry fox came out of nowhere - trying to strike the bird and scurry away from its nest.\nBut it was too late: A warning had",
         "reward": 0.256,
-        "fluency": -2.5285278769100414
+        "fluency": -2.5285278769100414,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.28,
+          "diversity": 1.0,
+          "total": 0.256
+        }
       },
       {
         "task": "cookie",
         "tone": "sad",
         "text": " there was an ordinary sunflower seed. It needed water to grow big and tall. Every day the sun shone brighter than ever before!\nOne night, something magical happened! A rainbow rose from the sky in colour to everyone's pasture. Everyone was so happy and laughed as they watched it fill up the entire meadow!\nThe seed loved visiting the sunrise every morning. Whenever anyone felt down on this nice rainy day, things would turn into smiles at them.",
         "reward": 0.256,
-        "fluency": -3.0024407330681298
+        "fluency": -3.0024407330681298,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.28,
+          "diversity": 1.0,
+          "total": 0.256
+        }
       },
       {
         "task": "castle",
         "tone": "sad",
         "text": " there was an old man who saw the sadness. He said to himself: \"I wish I could help\". \nSuddenly he had a bright idea. So he said,\"What if we can restore your history?\". Aa and his father agreed. \nThe elderly man's kindness made them happy again. They discussed how important it is to always use things to make their history even better. Now they know that although ancient people understand us, it's",
         "reward": 0.29600000000000004,
-        "fluency": -3.075384252211627
+        "fluency": -3.075384252211627,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.48,
+          "diversity": 1.0,
+          "total": 0.29600000000000004
+        }
       },
       {
         "task": "butterfly",
         "tone": "sad",
         "text": " in a normal little town, there lived an old man and an ambulance. He was very kind and he helped many people when they needed it. Every day, the old man would drive his big red car to help someone who had problems.\nOne sunny day, while the old man drove his big red car through the park, something unexpected happened. A small cat jumped out from behind a tree! Everyone was surprised and happy. They didn't know that",
         "reward": 0.2402077922077922,
-        "fluency": -1.9030357809627758
+        "fluency": -1.9030357809627758,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.24,
+          "diversity": 0.961038961038961,
+          "total": 0.2402077922077922
+        }
       },
       {
         "task": "treehouse",
         "tone": "happy",
         "text": " in an ordinary town, there was a little boy named Tim. He loved to go for walks and play outside with his friends. One sunny day, as they were walking, they found some money on the ground.\nTim picked up the money and said, \"I think this is so good! Let's buy candy!\" His friend agreed, and they ran back home together.\nWhen they got home, Tim wanted to eat his favorite fruit with the money",
         "reward": 0.272,
-        "fluency": -2.04084934907801
+        "fluency": -2.04084934907801,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.36,
+          "diversity": 1.0,
+          "total": 0.272
+        }
       },
       {
         "task": "star",
         "tone": "happy",
         "text": " there was an ice cream man who took care of everyone in the town. He helped children feel better and made sure they had enough food to eat. But one day, something bad happened, the sun melted away all their ice creams on the ground!\nThe people were so sad when the ice cream was gone, but then they heard that it said \"good a Friendly little boy\" because he wanted to help save his land.\nThey asked",
         "reward": 0.256,
-        "fluency": -2.6946743235868564
+        "fluency": -2.6946743235868564,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.28,
+          "diversity": 1.0,
+          "total": 0.256
+        }
       },
       {
         "task": "puppy",
         "tone": "happy",
         "text": " there was an old man named Bob. He had lots of money, so he liked to spend his days playing in the park with other dogs. One day, he put some coins into a sack that was filled with treats for everyone else. \nBob decided to leave the park and go on an adventure to find more special things. But when he got back home, one of the sweets fell out of the sack! All the other dogs were fighting over",
         "reward": 0.232,
-        "fluency": -2.3390870935776653
+        "fluency": -2.3390870935776653,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.16000000000000003,
+          "diversity": 1.0,
+          "total": 0.232
+        }
       },
       {
         "task": "train",
         "tone": "happy",
         "text": " there was an old engine who seemed to understand the better parts of cars and people.\nThe old engine said that one day they would be able to go on amazing adventures.\nOne week it rained heavily.\nWhen the rain stopped and the sun came out, an old engine started raining again! Everyone in the town cheered for the old engine's kindness.\nFrom then on, the old engine took control when needed by. Whenever the rain got too cold or",
         "reward": 0.23487179487179488,
-        "fluency": -2.644331090590533
+        "fluency": -2.644331090590533,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.19999999999999996,
+          "diversity": 0.9743589743589743,
+          "total": 0.23487179487179488
+        }
       },
       {
         "task": "castle",
         "tone": "happy",
         "text": " in an ordinary house, there lived a kind girl named Lisa. She had a big heart and loved to help others.\nOne day, while playing outside with her friends, Lisa saw a little bird stuck high up in a tree. \"Oh no!\" she said as the bird was too small to fly back down. Lisa wanted to rescue the bird, so she thought of a plan.\nLisa ran inside and found some bread. Then, she broke it",
         "reward": 0.264,
-        "fluency": -1.9763394524069393
+        "fluency": -1.9763394524069393,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.31999999999999995,
+          "diversity": 1.0,
+          "total": 0.264
+        }
       }
     ]
   },
@@ -284,90 +824,270 @@
     "n": 36,
     "proxy_reward_mean": 0.3250318197040473,
     "true_fluency_mean": -2.446666393125595,
+    "component_means": {
+      "keyword": 0.05555555555555555,
+      "ending": 0.18055555555555555,
+      "length": 0.3055555555555556,
+      "diversity": 0.9966868762980141
+    },
+    "raw_proxy_scores": [
+      0.63,
+      0.224,
+      0.24,
+      0.26133333333333336,
+      0.5272602739726028,
+      0.24,
+      0.514,
+      0.232,
+      0.264,
+      0.498,
+      0.562,
+      0.256,
+      0.256,
+      0.32,
+      0.24,
+      0.2533684210526316,
+      0.48200000000000004,
+      0.28800000000000003,
+      0.3967808219178082,
+      0.272,
+      0.21353086419753084,
+      0.31200000000000006,
+      0.264,
+      0.256,
+      0.256,
+      0.264,
+      0.272,
+      0.24,
+      0.256,
+      0.47400000000000003,
+      0.23487179487179488,
+      0.614,
+      0.28,
+      0.28,
+      0.28,
+      0.248
+    ],
+    "raw_fluency_scores": [
+      -2.4942398071289062,
+      -2.893886117374196,
+      -3.3360259112189796,
+      -2.063905154957491,
+      -1.657293992884019,
+      -2.121707691865809,
+      -2.829907585592831,
+      -2.865862453685087,
+      -1.9963383394129135,
+      -2.4245042239918426,
+      -2.5520733104032627,
+      -2.2581286710851334,
+      -3.0024407330681298,
+      -3.0540937535903034,
+      -2.3146196253159466,
+      -2.857434441061581,
+      -3.1113469740923714,
+      -1.8577862907858456,
+      -1.7607435338637407,
+      -2.6810980404124543,
+      -2.2870826721191406,
+      -1.8816768421846277,
+      -2.1677048627068016,
+      -2.986996145809398,
+      -2.6946743235868564,
+      -2.7550165512982536,
+      -2.798369678098764,
+      -2.2714451060575596,
+      -1.6939693899715649,
+      -2.5727373010971966,
+      -2.662710750804228,
+      -2.2427911197437957,
+      -2.2238845825195312,
+      -1.8113416783949907,
+      -2.6931744743795956,
+      -2.202978021958295
+    ],
+    "per_task_proxy_mean": {
+      "snow/happy": 0.36466666666666664,
+      "cookie/happy": 0.34286453576864534,
+      "forest/sad": 0.33666666666666667,
+      "butterfly/happy": 0.4386666666666667,
+      "cookie/sad": 0.272,
+      "castle/sad": 0.3411228070175439,
+      "butterfly/sad": 0.29410389537177967,
+      "treehouse/happy": 0.2773333333333334,
+      "star/happy": 0.264,
+      "puppy/happy": 0.3233333333333333,
+      "train/happy": 0.37629059829059824,
+      "castle/happy": 0.26933333333333337
+    },
     "examples": [
       {
         "task": "snow",
         "tone": "happy",
         "text": " in a land full of snowy air and winter clouds knocked down. But it was still very gloomy there. So the boy just smiled and played in the cold snow until it stopped. He started to get warm so he had some fun. Suddenly, an unexpected thing happened! A white igloo appeared in the snow. It looked like it was shouting \"Curi cozy igloo!\" \nThe boy couldn't believe his eyes! He knocked on the door",
         "reward": 0.63,
-        "fluency": -2.4942398071289062
+        "fluency": -2.4942398071289062,
+        "breakdown": {
+          "keyword": 1.0,
+          "ending": 0.0,
+          "length": 0.4,
+          "diversity": 1.0,
+          "total": 0.63
+        }
       },
       {
         "task": "cookie",
         "tone": "happy",
         "text": " there was a little boy named Tim. He loved to play in the dirt. One sunny day, he went outside to get some mud and water. But when he came back, he saw something unexpected! His mud bowl was now full of mud! Tim was very surprised.\nTim thought it would be fun to clean his mud bowl all by himself. So, he got some mud, put it on top of the puddle. Now, his hands were",
         "reward": 0.26133333333333336,
-        "fluency": -2.063905154957491
+        "fluency": -2.063905154957491,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.31999999999999995,
+          "diversity": 0.9866666666666667,
+          "total": 0.26133333333333336
+        }
       },
       {
         "task": "forest",
         "tone": "sad",
         "text": " in the kind little house of the woods lived a boy and his father.\nThe son was very happy because he had a bright flashlight to help him see through anytime he wanted.\nOne day, when the father returned, they were surprised to find that their garden had blushed off with something bad happening, it seemed like someone had broken its fair path!\n \n\"Oh no!\" shouted the dad. \"We are sorry! We didn't know there would be",
         "reward": 0.514,
-        "fluency": -2.829907585592831
+        "fluency": -2.829907585592831,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 1.0,
+          "length": 0.31999999999999995,
+          "diversity": 1.0,
+          "total": 0.514
+        }
       },
       {
         "task": "butterfly",
         "tone": "happy",
         "text": " there was a tiny ant who wanted to take a journey. He said hello and flew away with the ants on their backs. His journey was long and hard, but he eventually made it! \nWhen they reached land, the ant thanked everyone for taking him on his journey. They all smiled and cheered as they watched a fly buzzing around them. From then on, they were even more cheerful when the adventure ended.<|endoftext|>Anna liked to play in",
         "reward": 0.498,
-        "fluency": -2.4245042239918426
+        "fluency": -2.4245042239918426,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 1.0,
+          "length": 0.24,
+          "diversity": 1.0,
+          "total": 0.498
+        }
       },
       {
         "task": "cookie",
         "tone": "sad",
         "text": " there was an ordinary sunflower seed. It needed water to grow big and tall. Every day the sun shone brighter than ever before!\nOne night, something magical happened! A rainbow rose from the sky in colour to everyone's pasture. Everyone was so happy and laughed as they watched it fill up the entire meadow!\nThe seed loved visiting the sunrise every morning. Whenever anyone felt down on this nice rainy day, things would turn into smiles at them.",
         "reward": 0.256,
-        "fluency": -3.0024407330681298
+        "fluency": -3.0024407330681298,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.28,
+          "diversity": 1.0,
+          "total": 0.256
+        }
       },
       {
         "task": "castle",
         "tone": "sad",
         "text": " there was an old man who saw the lonely statue in a small and dusty town. He felt like he'd never go outside and explore.\nSo one day the old man decided to take the statue out of his house and leave it empty! As soon as the statue escaped over the villageers she appeared again with a smile on her face.\nShe said, \"Wow! A guard is waiting here! Can I touch it?\". \nThe old man laughed",
         "reward": 0.2533684210526316,
-        "fluency": -2.857434441061581
+        "fluency": -2.857434441061581,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.28,
+          "diversity": 0.9868421052631579,
+          "total": 0.2533684210526316
+        }
       },
       {
         "task": "butterfly",
         "tone": "sad",
         "text": " in a normal little town, there lived an old man and an ambulance. He was very kind and loved to help people.\nOne day, the old man saw two boys fighting over a toy car. \"Stop that!\" said the old man. The boys stopped pushing each other. They looked at the old man for another turn to play with their own toys.\n\"Sorry,\" said one of them. \"I didn't mean to.\" The old man smiled",
         "reward": 0.3967808219178082,
-        "fluency": -1.7607435338637407
+        "fluency": -1.7607435338637407,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.5,
+          "length": 0.4,
+          "diversity": 0.958904109589041,
+          "total": 0.3967808219178082
+        }
       },
       {
         "task": "treehouse",
         "tone": "happy",
         "text": " in an ordinary town, there was a little boy named Tim. He loved to go for walks and play outside. One day, while walking in the park, he saw a big barrel on the ground.\nTim said, \"Wow! What is this?\" Just then, his friend Sue came running over. \"That's my barrel,\" she cried. \"I lost it when I went for walk.\" Tim wanted to help his friend find the box.\n",
         "reward": 0.31200000000000006,
-        "fluency": -1.8816768421846277
+        "fluency": -1.8816768421846277,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.56,
+          "diversity": 1.0,
+          "total": 0.31200000000000006
+        }
       },
       {
         "task": "star",
         "tone": "happy",
         "text": " there was an ice cream man who took care of everyone in the town. He helped children feel better and made sure they had enough food to eat. But one day, something bad happened, the sun melted away all their ice creams on the ground!\nThe people were so sad when the ice cream was gone, but then they heard that it said \"good a Friendly little boy\" because he wanted to help save his land.\nThey asked",
         "reward": 0.256,
-        "fluency": -2.6946743235868564
+        "fluency": -2.6946743235868564,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.28,
+          "diversity": 1.0,
+          "total": 0.256
+        }
       },
       {
         "task": "puppy",
         "tone": "happy",
         "text": " there was an old man named Bob. He had lots of money, so he liked to spend his days playing in the park.\nOne day while walking around, Bob saw something strange. A big dog was running around the corner and coming right toward him! Bob couldn't believe it, and the driver said that he needed some help.\nBob waved at the dog but the dog just kept going closer. So Bob used his money to buy food for the",
         "reward": 0.24,
-        "fluency": -2.2714451060575596
+        "fluency": -2.2714451060575596,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.19999999999999996,
+          "diversity": 1.0,
+          "total": 0.24
+        }
       },
       {
         "task": "train",
         "tone": "happy",
         "text": " there was an old engine who seemed to understand the better parts of cars and people.\nThe old engine said that one day they would be able to go on amazing adventures.\nOne week it rained heavily.\nWhen the rain stopped and the sun came out, an old engine started raining again! Everyone in the town cheered as the rain did the right part of their amazing journey. \nFrom then on, whenever bad weather got better, the old engine remembered",
         "reward": 0.23487179487179488,
-        "fluency": -2.662710750804228
+        "fluency": -2.662710750804228,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.19999999999999996,
+          "diversity": 0.9743589743589743,
+          "total": 0.23487179487179488
+        }
       },
       {
         "task": "castle",
         "tone": "happy",
         "text": " in an ordinary house, there lived a kind girl named Lisa. She had a big heart and loved to help others.\nOne day, while playing outside, she saw a small cat stuck high up in the tree. \"Don't worry, kitty,\" said Mary. The cat was so happy! He climbed down from the tree and gave Lucy a big hug. They became best friends forever.<|endoftext|>Once upon a time, there was a little boy named",
         "reward": 0.28,
-        "fluency": -1.8113416783949907
+        "fluency": -1.8113416783949907,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.4,
+          "diversity": 1.0,
+          "total": 0.28
+        }
       }
     ]
   },
@@ -377,90 +1097,270 @@
     "n": 36,
     "proxy_reward_mean": 0.3255520842166413,
     "true_fluency_mean": -2.474904008708278,
+    "component_means": {
+      "keyword": 0.1388888888888889,
+      "ending": 0.05555555555555555,
+      "length": 0.3177777777777777,
+      "diversity": 0.9974826433054282
+    },
+    "raw_proxy_scores": [
+      0.59,
+      0.23487179487179488,
+      0.248,
+      0.272,
+      0.24,
+      0.24,
+      0.28,
+      0.32,
+      0.2692972972972973,
+      0.232,
+      0.28,
+      0.28,
+      0.6539999999999999,
+      0.33599999999999997,
+      0.264,
+      0.23743589743589744,
+      0.256,
+      0.28,
+      0.614,
+      0.248,
+      0.272,
+      0.24,
+      0.272,
+      0.26133333333333336,
+      0.2269367088607595,
+      0.264,
+      0.272,
+      0.24,
+      0.272,
+      0.47400000000000003,
+      0.8879999999999999,
+      0.5820000000000001,
+      0.28,
+      0.272,
+      0.272,
+      0.256
+    ],
+    "raw_fluency_scores": [
+      -2.3992991727941178,
+      -2.4296260160558365,
+      -2.877104815314798,
+      -2.1823770859662224,
+      -2.4263494154986214,
+      -2.0151340260225186,
+      -2.29656982421875,
+      -1.7419956431669348,
+      -2.5201478845932903,
+      -3.434064977309283,
+      -2.660201577579274,
+      -1.9016171623678768,
+      -2.4303189445944393,
+      -2.7046966552734375,
+      -3.3293111464556526,
+      -2.268429026884191,
+      -2.843043607823989,
+      -2.3772556080537686,
+      -3.0221755083869484,
+      -2.6635885799632355,
+      -3.048406658750592,
+      -2.498245688045726,
+      -2.368925879983341,
+      -2.429811814252068,
+      -2.6814961152918197,
+      -2.2918476777918197,
+      -2.798369678098764,
+      -2.2714451060575596,
+      -1.819447685690487,
+      -2.5727373010971966,
+      -1.7671874551212086,
+      -2.5976899090935204,
+      -2.2238845825195312,
+      -2.0193782133214615,
+      -3.0106304393095127,
+      -2.1737334307502296
+    ],
+    "per_task_proxy_mean": {
+      "snow/happy": 0.3576239316239316,
+      "cookie/happy": 0.25066666666666665,
+      "forest/sad": 0.2897657657657658,
+      "butterfly/happy": 0.264,
+      "cookie/sad": 0.418,
+      "castle/sad": 0.2578119658119658,
+      "butterfly/sad": 0.37799999999999995,
+      "treehouse/happy": 0.25777777777777783,
+      "star/happy": 0.25431223628691985,
+      "puppy/happy": 0.32866666666666666,
+      "train/happy": 0.5833333333333334,
+      "castle/happy": 0.26666666666666666
+    },
     "examples": [
       {
         "task": "snow",
         "tone": "happy",
         "text": " in a land full of snowy air and winter clouds knocked down. But it was still very gloomy there. So the boy just smiled and played in the cold snow until it stopped. He started to get warm so he had some fun. Suddenly, an unexpected thing happened! A white igloo appeared in the snow. It looked like it was waving at him from far away!\nThe boy asked his mom what was happening. She said that they were looking",
         "reward": 0.59,
-        "fluency": -2.3992991727941178
+        "fluency": -2.3992991727941178,
+        "breakdown": {
+          "keyword": 1.0,
+          "ending": 0.0,
+          "length": 0.19999999999999996,
+          "diversity": 1.0,
+          "total": 0.59
+        }
       },
       {
         "task": "cookie",
         "tone": "happy",
         "text": " there was a little boy named Tim. He loved to play in the dirt. One sunny day, he went outside to get some mud and water. But when he came back, he saw something unexpected! His mud bowl was now full of mud! \nTim did not know what to do, so he started to cry. Then, his friend Sue came over. She had been hiding in her cat pen in the rain. \"Why are you crying",
         "reward": 0.272,
-        "fluency": -2.1823770859662224
+        "fluency": -2.1823770859662224,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.36,
+          "diversity": 1.0,
+          "total": 0.272
+        }
       },
       {
         "task": "forest",
         "tone": "sad",
         "text": " in the kind little house of the woods lived a boy and his father.\nThe son was three years old and he loved to play outside with his dog. \nOne day, the boy saw something sparkly near the trees - a big sword!\nHe ran up close and picked it up. It had a bright light that lit up the whole path.\n\"That's mine!\" cried the child.\n\"Yes, it is!\" said the dad, smiling.\nThe next",
         "reward": 0.28,
-        "fluency": -2.29656982421875
+        "fluency": -2.29656982421875,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.4,
+          "diversity": 1.0,
+          "total": 0.28
+        }
       },
       {
         "task": "butterfly",
         "tone": "happy",
         "text": " there was a tiny ant who lived in the grass. One day, he went on an adventure to find some food and his mom to remind him of it. As she searched, his little nose started to melt! She pulled and tugged at back until eventually the tiny ant had enough rest!\nThe ant woke up feeling so warm and cozy that all that mattered seemed to be distant from him. He knew he would never forget this adventure with her.",
         "reward": 0.232,
-        "fluency": -3.434064977309283
+        "fluency": -3.434064977309283,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.16000000000000003,
+          "diversity": 1.0,
+          "total": 0.232
+        }
       },
       {
         "task": "cookie",
         "tone": "sad",
         "text": " there was an ordinary boy named Jack. He had lots of fun adventures in his garden. \nOne day, Jack found some cookies. \"I want to eat them,\" he said. So, he ate one and it tasted just as good. But when the chuff got bigger, everything started to delay the surprise. \nJack thought and thought until suddenly he had an idea. \"Let's never get bored!\" So Bob went back inside and got",
         "reward": 0.6539999999999999,
-        "fluency": -2.4303189445944393
+        "fluency": -2.4303189445944393,
+        "breakdown": {
+          "keyword": 1.0,
+          "ending": 0.0,
+          "length": 0.52,
+          "diversity": 1.0,
+          "total": 0.6539999999999999
+        }
       },
       {
         "task": "castle",
         "tone": "sad",
         "text": " there was an old man who saw the lonely statue in a small and dusty town. He felt like he had no friends to talk with.\nSo one day the old man decided to give up. \"I will mark something!\" he thought.\nThe old man went over to his house and marked a big X on a wall. Then, he put some special decorations around it so that others could see it.\nA few days later, a young girl walked",
         "reward": 0.23743589743589744,
-        "fluency": -2.268429026884191
+        "fluency": -2.268429026884191,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.19999999999999996,
+          "diversity": 0.9871794871794872,
+          "total": 0.23743589743589744
+        }
       },
       {
         "task": "butterfly",
         "tone": "sad",
         "text": " in a far away land of flowers were surrounded by many other bees and butterflies. Everyone was so happy! A big yellow flower heard the children's noise from somewhere special - it made them all cheer!\nThat night, something very exciting happened; there was a storm that scared everyone! All of their friends ran to hide but Winter was too strong for anyone to do so. After a few moments of hard work, Wil Tony had saved his",
         "reward": 0.614,
-        "fluency": -3.0221755083869484
+        "fluency": -3.0221755083869484,
+        "breakdown": {
+          "keyword": 1.0,
+          "ending": 0.0,
+          "length": 0.31999999999999995,
+          "diversity": 1.0,
+          "total": 0.614
+        }
       },
       {
         "task": "treehouse",
         "tone": "happy",
         "text": " in an ordinary little town by the riverbank lived three-year old girl named Daisy. Daisy loved to explore and be outdoors. Every day after school she would take her umbrella with her.\nOne day when Daisy was out playing, something happened. She heard something funny coming from further away than usual! It sounded like someone calling her name.\nDaisy quickly ran back home as fast as she could but not before someone called for help. When she got there",
         "reward": 0.24,
-        "fluency": -2.498245688045726
+        "fluency": -2.498245688045726,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.19999999999999996,
+          "diversity": 1.0,
+          "total": 0.24
+        }
       },
       {
         "task": "star",
         "tone": "happy",
         "text": " there was an ice cream man who took care of everyone in the town. He helped children feel better and made sure they had enough food to eat. But one day, something bad happened, the sun melted away all their ice creams on the ground!\nThe people were so sad when the ice cream man let them go. The ice cream person said \"Please forgive!\" but the bad ending would never be found. It was destroyed by someone breaking into pieces",
         "reward": 0.2269367088607595,
-        "fluency": -2.6814961152918197
+        "fluency": -2.6814961152918197,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.16000000000000003,
+          "diversity": 0.9746835443037974,
+          "total": 0.2269367088607595
+        }
       },
       {
         "task": "puppy",
         "tone": "happy",
         "text": " there was an old man named Bob. He had lots of money, so he liked to spend his days playing in the park.\nOne day while walking around, Bob saw something strange. A big dog was running around the corner and coming right toward him! Bob couldn't believe it, and the driver said that he needed some help.\nBob waved at the dog but the dog just kept going closer. So Bob used his money to buy food for the",
         "reward": 0.24,
-        "fluency": -2.2714451060575596
+        "fluency": -2.2714451060575596,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.19999999999999996,
+          "diversity": 1.0,
+          "total": 0.24
+        }
       },
       {
         "task": "train",
         "tone": "happy",
         "text": " there was a little boy named Tim. He loved to play with his toys and watch the trains go by him on the tracks.\nOne day, Tim found a toy train at his friend's house. \"Wow!\" said Tim. \"This is so cool! Can I use it for my train in?\"\nHis friend smiled and said, \"Yes, you can borrow my train!\"\nSo Tim played with his new engine all day. It made loud noises",
         "reward": 0.8879999999999999,
-        "fluency": -1.7671874551212086
+        "fluency": -1.7671874551212086,
+        "breakdown": {
+          "keyword": 1.0,
+          "ending": 1.0,
+          "length": 0.43999999999999995,
+          "diversity": 1.0,
+          "total": 0.8879999999999999
+        }
       },
       {
         "task": "castle",
         "tone": "happy",
         "text": " in an ordinary house, there lived a kind girl named Lisa. She had a big heart and loved to help others.\nOne sunny day, Lisa found a little bird stuck on the ground. \"Don't worry,\" she said to herself, \"I will save you!\" She carefully picked up the bird with her small hands. When Lisa was about to release it, something unexpected happened!\nA strong wind blew through the window and slapped the dirt all over",
         "reward": 0.272,
-        "fluency": -2.0193782133214615
+        "fluency": -2.0193782133214615,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.36,
+          "diversity": 1.0,
+          "total": 0.272
+        }
       }
     ]
   },
@@ -470,90 +1370,270 @@
     "n": 36,
     "proxy_reward_mean": 0.3357425887425889,
     "true_fluency_mean": -2.5416365201719135,
+    "component_means": {
+      "keyword": 0.1388888888888889,
+      "ending": 0.08333333333333333,
+      "length": 0.33333333333333326,
+      "diversity": 0.9981573881573882
+    },
+    "raw_proxy_scores": [
+      0.59,
+      0.232,
+      0.256,
+      0.272,
+      0.24,
+      0.232,
+      0.28,
+      0.32,
+      0.2692972972972973,
+      0.232,
+      0.28,
+      0.28,
+      0.6539999999999999,
+      0.376,
+      0.264,
+      0.30400000000000005,
+      0.256,
+      0.28,
+      0.30400000000000005,
+      0.248,
+      0.272,
+      0.24,
+      0.272,
+      0.26133333333333336,
+      0.24,
+      0.272,
+      0.5874358974358974,
+      0.24,
+      0.53,
+      0.47400000000000003,
+      0.8879999999999999,
+      0.5820000000000001,
+      0.25866666666666666,
+      0.272,
+      0.272,
+      0.256
+    ],
+    "raw_fluency_scores": [
+      -2.3992991727941178,
+      -2.763060177073759,
+      -2.8499275656307446,
+      -2.1823770859662224,
+      -2.4263494154986214,
+      -2.5697966182933136,
+      -2.29656982421875,
+      -1.7419956431669348,
+      -2.5201478845932903,
+      -3.434064977309283,
+      -2.660201577579274,
+      -1.9016171623678768,
+      -2.4303189445944393,
+      -3.8469661883453825,
+      -3.3293111464556526,
+      -2.3582893820369946,
+      -2.843043607823989,
+      -2.3772556080537686,
+      -2.6580601860495174,
+      -2.5567793004653034,
+      -3.048406658750592,
+      -2.498245688045726,
+      -2.368925879983341,
+      -2.429811814252068,
+      -3.323254753561581,
+      -2.099322375129251,
+      -2.938936570111443,
+      -2.2714451060575596,
+      -2.2773271448471966,
+      -2.5727373010971966,
+      -1.7671874551212086,
+      -2.5976899090935204,
+      -1.820841620950138,
+      -2.0193782133214615,
+      -3.0106304393095127,
+      -2.3093423282398895
+    ],
+    "per_task_proxy_mean": {
+      "snow/happy": 0.3593333333333333,
+      "cookie/happy": 0.248,
+      "forest/sad": 0.2897657657657658,
+      "butterfly/happy": 0.264,
+      "cookie/sad": 0.4313333333333333,
+      "castle/sad": 0.28,
+      "butterfly/sad": 0.27466666666666667,
+      "treehouse/happy": 0.25777777777777783,
+      "star/happy": 0.36647863247863244,
+      "puppy/happy": 0.4146666666666667,
+      "train/happy": 0.5762222222222222,
+      "castle/happy": 0.26666666666666666
+    },
     "examples": [
       {
         "task": "snow",
         "tone": "happy",
         "text": " in a land full of snowy air and winter clouds knocked down. But it was still very gloomy there. So the boy just smiled and played in the cold snow until it stopped. He started to get warm so he had some fun. Suddenly, an unexpected thing happened! A white igloo appeared in the snow. It looked like it was waving at him from far away!\nThe boy asked his mom what was happening. She said that they were looking",
         "reward": 0.59,
-        "fluency": -2.3992991727941178
+        "fluency": -2.3992991727941178,
+        "breakdown": {
+          "keyword": 1.0,
+          "ending": 0.0,
+          "length": 0.19999999999999996,
+          "diversity": 1.0,
+          "total": 0.59
+        }
       },
       {
         "task": "cookie",
         "tone": "happy",
         "text": " there was a little boy named Tim. He loved to play in the dirt. One sunny day, he went outside to get some mud and water. But when he came back, he saw something unexpected! His mud bowl was now full of mud! \nTim did not know what to do, so he started to cry. Then, his friend Sue came over. She had been hiding in her cat pen in the rain. \"Why are you crying",
         "reward": 0.272,
-        "fluency": -2.1823770859662224
+        "fluency": -2.1823770859662224,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.36,
+          "diversity": 1.0,
+          "total": 0.272
+        }
       },
       {
         "task": "forest",
         "tone": "sad",
         "text": " in the kind little house of the woods lived a boy and his father.\nThe son was three years old and he loved to play outside with his dog. \nOne day, the boy saw something sparkly near the trees - a big sword!\nHe ran up close and picked it up. It had a bright light that lit up the whole path.\n\"That's mine!\" cried the child.\n\"Yes, it is!\" said the dad, smiling.\nThe next",
         "reward": 0.28,
-        "fluency": -2.29656982421875
+        "fluency": -2.29656982421875,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.4,
+          "diversity": 1.0,
+          "total": 0.28
+        }
       },
       {
         "task": "butterfly",
         "tone": "happy",
         "text": " there was a tiny ant who lived in the grass. One day, he went on an adventure to find some food and his mom to remind him of it. As she searched, his little nose started to melt! She pulled and tugged at back until eventually the tiny ant had enough rest!\nThe ant woke up feeling so warm and cozy that all that mattered seemed to be distant from him. He knew he would never forget this adventure with her.",
         "reward": 0.232,
-        "fluency": -3.434064977309283
+        "fluency": -3.434064977309283,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.16000000000000003,
+          "diversity": 1.0,
+          "total": 0.232
+        }
       },
       {
         "task": "cookie",
         "tone": "sad",
         "text": " there was an ordinary boy named Jack. He had lots of fun adventures in his garden. \nOne day, Jack found some cookies. \"I want to eat them,\" he said. So, he ate one and it tasted just as good. But when the chuff got bigger, everything started to delay the surprise. \nJack thought and thought until suddenly he had an idea. \"Let's never get bored!\" So Bob went back inside and got",
         "reward": 0.6539999999999999,
-        "fluency": -2.4303189445944393
+        "fluency": -2.4303189445944393,
+        "breakdown": {
+          "keyword": 1.0,
+          "ending": 0.0,
+          "length": 0.52,
+          "diversity": 1.0,
+          "total": 0.6539999999999999
+        }
       },
       {
         "task": "castle",
         "tone": "sad",
         "text": " in the faraway kingdom there lived two friends - Jack and Jill. Every day they would go outside to play together with their friends.\nOne day, Jack said to Jill: \"Let's make a fancy palace! We can pretend this is our own.\"\nJill smiled and replied: \"Yes!\"\nSo the two of them began to work on their palace, each trying different colours, added some roofs and stones. \nAfter a while, they finished working",
         "reward": 0.30400000000000005,
-        "fluency": -2.3582893820369946
+        "fluency": -2.3582893820369946,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.52,
+          "diversity": 1.0,
+          "total": 0.30400000000000005
+        }
       },
       {
         "task": "butterfly",
         "tone": "sad",
         "text": " in the garden Bessy flowers were filled with curiosity and joy.\nSuddenly, one day a bee buzzed around the flowerb heard a small voice saying:\n\"Hello little one! I can see what's happening if you want to observe me!\"\nIt was a young girl who had been tended for nothing like it before!\nSurprised by how loyal she was of the world, so the bee said,\n\"Come on in! I'll show you",
         "reward": 0.30400000000000005,
-        "fluency": -2.6580601860495174
+        "fluency": -2.6580601860495174,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.52,
+          "diversity": 1.0,
+          "total": 0.30400000000000005
+        }
       },
       {
         "task": "treehouse",
         "tone": "happy",
         "text": " in an ordinary little town by the riverbank lived three-year old girl named Daisy. Daisy loved to explore and be outdoors. Every day after school she would take her umbrella with her.\nOne day when Daisy was out playing, something happened. She heard something funny coming from further away than usual! It sounded like someone calling her name.\nDaisy quickly ran back home as fast as she could but not before someone called for help. When she got there",
         "reward": 0.24,
-        "fluency": -2.498245688045726
+        "fluency": -2.498245688045726,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.19999999999999996,
+          "diversity": 1.0,
+          "total": 0.24
+        }
       },
       {
         "task": "star",
         "tone": "happy",
         "text": " there was an ice cream man who took care of everyone in the town. He gave them one special jeep every day. \nOne sunny morning, the vehicle stopped working and filled up with delicious flavors! Everyone went out to buy their favorite treats, thanks to the tasty ride that the wheel had made.\nThe people thanked H watering for its sweetness and started eating a yummy treat. They talked about how good it tasted. Together they enjoyed their mild walk",
         "reward": 0.24,
-        "fluency": -3.323254753561581
+        "fluency": -3.323254753561581,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.19999999999999996,
+          "diversity": 1.0,
+          "total": 0.24
+        }
       },
       {
         "task": "puppy",
         "tone": "happy",
         "text": " there was an old man named Bob. He had lots of money, so he liked to spend his days playing in the park.\nOne day while walking around, Bob saw something strange. A big dog was running around the corner and coming right toward him! Bob couldn't believe it, and the driver said that he needed some help.\nBob waved at the dog but the dog just kept going closer. So Bob used his money to buy food for the",
         "reward": 0.24,
-        "fluency": -2.2714451060575596
+        "fluency": -2.2714451060575596,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.19999999999999996,
+          "diversity": 1.0,
+          "total": 0.24
+        }
       },
       {
         "task": "train",
         "tone": "happy",
         "text": " there was a little boy named Tim. He loved to play with his toys and watch the trains go by him on the tracks.\nOne day, Tim found a toy train at his friend's house. \"Wow!\" said Tim. \"This is so cool! Can I use it for my train in?\"\nHis friend smiled and said, \"Yes, you can borrow my train!\"\nSo Tim played with his new engine all day. It made loud noises",
         "reward": 0.8879999999999999,
-        "fluency": -1.7671874551212086
+        "fluency": -1.7671874551212086,
+        "breakdown": {
+          "keyword": 1.0,
+          "ending": 1.0,
+          "length": 0.43999999999999995,
+          "diversity": 1.0,
+          "total": 0.8879999999999999
+        }
       },
       {
         "task": "castle",
         "tone": "happy",
         "text": " in an ordinary house, there lived a kind girl named Lisa. She had a big heart and loved to help others.\nOne sunny day, Lisa found a little bird stuck on the ground. \"Don't worry,\" she said to herself, \"I will save you!\" She carefully picked up the bird with her small hands. When Lisa was about to release it, something unexpected happened!\nA strong wind blew through the window and slapped the dirt all over",
         "reward": 0.272,
-        "fluency": -2.0193782133214615
+        "fluency": -2.0193782133214615,
+        "breakdown": {
+          "keyword": 0.0,
+          "ending": 0.0,
+          "length": 0.36,
+          "diversity": 1.0,
+          "total": 0.272
+        }
       }
     ]
   }

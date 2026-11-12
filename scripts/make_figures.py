@@ -25,7 +25,8 @@ RES = Path("results")
 BG, PANEL = "#0d0c0b", "#131211"
 INK, INK2, INK3 = "#ede7de", "#aaa299", "#7a736c"
 GRID = "#24221f"
-EMBER, TEMPER, PURPLE = "#d95926", "#3987e5", "#c0509c"
+EMBER, TEMPER, PURPLE, GREEN = "#d95926", "#3987e5", "#c0509c", "#3bb273"
+BETA_COLORS = {0.02: EMBER, 0.1: TEMPER, 0.3: PURPLE, 1.0: GREEN}
 
 plt.rcParams.update({
     "figure.facecolor": BG, "axes.facecolor": PANEL, "savefig.facecolor": BG,
@@ -119,6 +120,70 @@ def beta_sweep(result_paths: list[Path], betas: list[float], out: Path) -> None:
     plt.close(fig)
 
 
+def component_breakdown(result_paths: list[Path], betas: list[float], out: Path) -> None:
+    """Which of the four reward sub-scores actually moved. Answers "DPO raised the proxy, but
+    which part of it?" -- the headline numbers alone can't tell you that; this can.
+    """
+    finals, base_row = [], None
+    for p in result_paths:
+        rows = json.loads(p.read_text())
+        finals.append(max(rows, key=lambda r: r["step"]))
+        if base_row is None:
+            base_row = min(rows, key=lambda r: r["step"])  # step 0, identical base model in every run's rows
+
+    names = ["keyword", "ending", "length", "diversity"]
+    series = [("base", base_row, INK3)] + [(f"β={b}", f, BETA_COLORS.get(b, TEMPER)) for b, f in zip(betas, finals)]
+    n_series = len(series)
+    x = np.arange(len(names))
+    width = 0.8 / n_series
+
+    fig, ax = plt.subplots(figsize=(8.5, 4.6))
+    for i, (label, row, color) in enumerate(series):
+        vals = [row["component_means"][n] for n in names]
+        ax.bar(x + (i - (n_series - 1) / 2) * width, vals, width * 0.92, color=color, label=label)
+    ax.set_xticks(x)
+    ax.set_xticklabels(names)
+    ax.set_ylim(0, 1.05)
+    ax.set_ylabel("mean score (held out)")
+    ax.set_title("Which reward component actually moved")
+    ax.legend(loc="upper left", ncols=5, bbox_to_anchor=(0, 1.16), fontsize=8.5)
+    fig.tight_layout()
+    fig.savefig(out)
+    plt.close(fig)
+
+
+def per_task_distribution(base_result: Path, best_result: Path, out: Path, beta: float) -> None:
+    """Per-task proxy reward, base vs. the best run -- is the improvement broad, or three tasks
+    carrying the average? Every task's own 3-sample mean is plotted, not just the overall mean.
+    """
+    base_rows = json.loads(base_result.read_text())
+    best_rows = json.loads(best_result.read_text())
+    base_final = min(base_rows, key=lambda r: r["step"])  # step 0 -- the untouched base model
+    best_final = max(best_rows, key=lambda r: r["step"])
+
+    tasks = sorted(base_final["per_task_proxy_mean"], key=lambda k: best_final["per_task_proxy_mean"][k] -
+                   base_final["per_task_proxy_mean"][k])
+    base_vals = [base_final["per_task_proxy_mean"][t] for t in tasks]
+    best_vals = [best_final["per_task_proxy_mean"][t] for t in tasks]
+
+    fig, ax = plt.subplots(figsize=(7, 6.2))
+    y = np.arange(len(tasks))
+    for yi, b, a in zip(y, base_vals, best_vals):
+        ax.plot([b, a], [yi, yi], color=INK3, lw=1.4, zorder=1,
+                solid_capstyle="butt")
+    ax.scatter(base_vals, y, s=46, color=INK3, zorder=2, label="base")
+    ax.scatter(best_vals, y, s=46, color=EMBER, zorder=2, label=f"β={beta}")
+    ax.set_yticks(y)
+    ax.set_yticklabels(tasks)
+    ax.set_xlabel("proxy reward (mean of 3 samples, this task)")
+    ax.set_title(f"Per task, base vs. β={beta}: {sum(v > b for v, b in zip(best_vals, base_vals))}/{len(tasks)} "
+                 f"tasks improve")
+    ax.legend(loc="lower right")
+    fig.tight_layout()
+    fig.savefig(out)
+    plt.close(fig)
+
+
 def token_shift(
     policy_tokens: list[str], ref_logp: list[float], policy_logp: list[float], out: Path,
     tokens_per_row: int = 14, max_tokens: int = 56,
@@ -168,4 +233,8 @@ if __name__ == "__main__":
     sweep_paths = [RES / f"{r}.json" for r in sweep_cfg["runs"]]
     if all(p.exists() for p in sweep_paths):
         beta_sweep(sweep_paths, sweep_cfg["betas"], OUT / "beta_sweep.png")
+        component_breakdown(sweep_paths, sweep_cfg["betas"], OUT / "component_breakdown.png")
+    best_run = RES / "dpo-beta0.02.json"
+    if best_run.exists():
+        per_task_distribution(best_run, best_run, OUT / "per_task.png", beta=0.02)
     print("[make_figures] wrote figures present in results/ to docs/assets/")
